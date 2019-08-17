@@ -6,37 +6,43 @@
 
 <ion-content>
 
-  <ion-list>
+  <form [formGroup]="formCadastro">
 
     <ion-item>
       <ion-label position="stacked">Nome Completo</ion-label>
-      <ion-input placeholder="Informe seu nome" type="text" ></ion-input>
+      <ion-input formControlName="nome" placeholder="Informe seu nome" type="text" ></ion-input>
+      <div *ngIf="formCadastro.controls.nome.errors && formCadastro.controls.nome.dirty">
+        <p *ngIf="formCadastro.controls.nome.errors.required" class="error">Informe seu nome</p>
+      </div>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">E-mail</ion-label>
-      <ion-input placeholder="Informe seu e-mail" type="email" ></ion-input>
+      <ion-input formControlName="email" placeholder="Informe seu e-mail" type="email" ></ion-input>
+      
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">UF</ion-label>
-      <ion-select okText="OK" cancelText="Cancelar" placeholder="Informe o estado" type="text">
+      <ion-select formControlName="uf" okText="OK" cancelText="Cancelar" placeholder="Informe o estado" type="text">
         <ion-select-option *ngFor="let estado of estados" value="{{ estado.sigla }}">{{ estado.nome }}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Senha</ion-label>
-      <ion-input placeholder="Informe a senha" type="password"></ion-input>
+      <ion-input formControlName="senha" placeholder="Informe a senha" type="password"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Repita a Senha</ion-label>
-      <ion-input placeholder="Informe a senha" type="password"></ion-input>
+      <ion-input formControlName="senha2" placeholder="Informe a senha novamente" type="password"></ion-input>
     </ion-item>
     
+    <div class='ion-padding'>
+      <ion-button [disabled]="formCadastro.invalido" expand="block" color="primary" (click)="enviar()">Enviar</ion-button>
+    </div>
 
-
-  </ion-list>
+  </form>
 
 </ion-content>
